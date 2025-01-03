@@ -1,0 +1,11 @@
+#sentiment-label {
+    margin-top: 10px;
+    font-size: 14px;
+    color:rgb(34, 255, 0);
+    background-color: rgb(198, 195, 195);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: block;
+    font-weight: bold;
+  }
+  

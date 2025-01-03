@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Sentiment Analyzer",
+    "version": "1.0",
+    "description": "Adds a sentiment label to YouTube pages (always says Positive for now).",
+    "permissions": [],
+    "host_permissions": ["*://www.youtube.com/*"],
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ]
+  }
+  
