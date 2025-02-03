@@ -1,10 +1,18 @@
 {
     "manifest_version": 3,
     "name": "YouTube Sentiment Analyzer",
-    "version": "1.0",
-    "description": "Adds a sentiment label to YouTube pages (always says Positive for now).",
-    "permissions": [],
-    "host_permissions": ["*://www.youtube.com/*"],
+    "version": "1.1",
+    "description": "Adds a sentiment label to YouTube pages.",
+    "permissions": [
+      "storage",
+      "activeTab"
+
+    ],
+    "host_permissions": [
+      "*://www.youtube.com/*",
+      "http://127.0.0.1:5000/*"
+      
+      ],
     "content_scripts": [
       {
         "matches": ["*://www.youtube.com/*"],
