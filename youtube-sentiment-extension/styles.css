@@ -1,11 +1,25 @@
 #sentiment-label {
     margin-top: 10px;
     font-size: 14px;
-    color:rgb(34, 255, 0);
-    background-color: rgb(198, 195, 195);
+    background-color: rgb(172, 172, 172);
     padding: 5px 10px;
     border-radius: 4px;
     display: block;
     font-weight: bold;
+    margin-bottom: 20px;
   }
   
+/* Styles for Positive sentiment */
+#sentiment-label.positive {
+  color: rgb(65, 137, 54);  /* Green color for Positive */
+}
+
+/* Styles for Negative sentiment */
+#sentiment-label.negative {
+  color: rgb(255, 0, 0);  /* Red color for Negative */
+}
+
+/* Styles for Neutral sentiment */
+#sentiment-label.neutral {
+  color: rgb(0, 0, 0);  /* Black color for Neutral */
+}
