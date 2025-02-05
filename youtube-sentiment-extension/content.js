@@ -3,8 +3,9 @@ console.log("YouTube Sentiment Analyzer content script loaded");
 let debounceTimeout;
 const DEBOUNCE_DELAY = 2000;  // 2 seconds debounce delay
 
-// Function to fetch sentiment analysis
+// Function to fetch sentiment analysis from backend
 async function fetchSentimentAnalysis(comments) {
+  
   // Debounce the request to avoid excessive calls
   clearTimeout(debounceTimeout);
   debounceTimeout = setTimeout(async () => {
@@ -22,7 +23,7 @@ async function fetchSentimentAnalysis(comments) {
       }
 
       const data = await response.json();
-      displaySentimentLabel(data.sentiment);  // Display sentiment label if response is valid
+      displaySentimentLabel(data.sentiment);  // Displaying sentiment label
 
     } catch (error) {
       console.error("Error fetching sentiment analysis:", error);
@@ -31,28 +32,28 @@ async function fetchSentimentAnalysis(comments) {
 }
 
 function extractComments() {
-  // Select all text content of comments inside the comment section
+  // Selecting all text content of comments inside the comment section
   const commentElements = document.querySelectorAll('ytd-comment-thread-renderer #content-text, ytd-comment-renderer #content-text');
   
-  // Map over the elements to extract and return the text content of each comment
+  // Mapping over the elements to extract and return the text content of each comment
   return Array.from(commentElements).map(el => el.textContent.trim());
 }
 
 function displaySentimentLabel(sentiment) {
-  // Check if the label already exists
+  
   let existingLabel = document.querySelector("#sentiment-label");
 
   if (!existingLabel) {
     // Create the label element if it doesn't exist
     existingLabel = document.createElement("div");
     existingLabel.id = "sentiment-label";
-    existingLabel.className = "sentiment-label";  // Set the base class for the label
+    existingLabel.className = "sentiment-label";
 
     // Locate the target element (ytd-comments-header-renderer or ytd-comments)
     const targetDiv = document.querySelector("ytd-comments-header-renderer");
 
     if (targetDiv) {
-      // Insert the label after the target element
+      // Inserting the label in the correct location
       targetDiv.insertAdjacentElement("afterend", existingLabel);
       console.log("Sentiment label added.");
     } else {
@@ -60,13 +61,12 @@ function displaySentimentLabel(sentiment) {
     }
   }
 
-  // Set the text content based on the sentiment
+  // Setting the text content based on the sentiment
   existingLabel.textContent = `Sentiment Analysis: ${sentiment}`;
 
-  // Remove old sentiment classes before adding the new one
+  // Adding the class based on sentiment
   existingLabel.classList.remove('positive', 'negative', 'neutral');
 
-  // Add the class based on sentiment
   if (sentiment === "Positive") {
     existingLabel.classList.add("positive");
   } else if (sentiment === "Negative") {
@@ -78,20 +78,22 @@ function displaySentimentLabel(sentiment) {
 
 // Function to wait for the comment section to load
 function waitForComments() {
-  const targetNode = document.querySelector("ytd-comments");  // The main comment section container
+  
+  const targetNode = document.querySelector("ytd-comments");  // This is the main comment section container
   if (targetNode) {
-    // Start the observer once comments are found
+    // Starting the observer once comments are found
     startObserver(targetNode);
   } else {
     console.log("ytd-comments not found, retrying...");
     // Retry after 2 seconds if comments are not found
     setTimeout(waitForComments, 2000);
   }
+  
 }
 
 function startObserver(targetNode) {
   const observer = new MutationObserver(async () => {
-    const comments = extractComments();  // Extract all the comments
+    const comments = extractComments();
     if (comments.length > 0) {
       fetchSentimentAnalysis(comments);  // Call the function to get sentiment analysis
     }
