@@ -31,6 +31,8 @@ async function fetchSentimentAnalysis(comments) {
   }, DEBOUNCE_DELAY);  // Wait for 2 seconds after the last comment change
 }
 
+
+// Function to get comments from youtube comment section
 function extractComments() {
   // Selecting all text content of comments inside the comment section
   const commentElements = document.querySelectorAll('ytd-comment-thread-renderer #content-text, ytd-comment-renderer #content-text');
@@ -39,6 +41,8 @@ function extractComments() {
   return Array.from(commentElements).map(el => el.textContent.trim());
 }
 
+
+// Function to show sentiment label on the webpage
 function displaySentimentLabel(sentiment) {
   
   let existingLabel = document.querySelector("#sentiment-label");
@@ -91,6 +95,8 @@ function waitForComments() {
   
 }
 
+
+// Function to make observer for page changes
 function startObserver(targetNode) {
   const observer = new MutationObserver(async () => {
     const comments = extractComments();
