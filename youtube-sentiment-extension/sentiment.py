@@ -10,18 +10,17 @@ CORS(app)
 sentiment_pipeline = pipeline("text-classification", 
                               model="nlptown/bert-base-multilingual-uncased-sentiment")
 
-
 @app.route('/analyze_sentiment', methods=['POST'])
-
 
 
 def analyze_sentiment():
     """
     This is the main function that takes the comments from the frontend and returns an overall
-    sentiment.
+    sentiment to the frontend.
     """
     
     try:
+      
         # Retreiving comments
         data = request.get_json()
         comments = data.get('comments', [])
@@ -29,7 +28,7 @@ def analyze_sentiment():
         if not comments or len(comments) < 20:
             return jsonify({"error": "Not enough comments"}), 500
 
-        # analyzing using pretrained model
+        # Analyzing using pretrained model
         sentiments = []
         for comment in comments:
 
@@ -47,7 +46,7 @@ def analyze_sentiment():
 
 def categorize_sentiment(label, score):
     """
-    This turns the pretrained models 1-5 scoring system into negative, neutral, or positive
+    This function turns the pretrained model's 1-5 scoring (label) system into negative, neutral, or positive
     categories.  Returns a string.
 
     (This doesn't actually use the confidence score atm)
